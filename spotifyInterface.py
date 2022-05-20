@@ -2,13 +2,21 @@ from json import loads
 import requests
 from time import strptime, time
 def validate_date(date):
-    if date == 'latest':
-        return 'latest'
+    """Validates the date, must be 'YYYY-MM-DD' or 'latest'
+
+    Args:
+        date (str): String of date in format 'YYYY-MM-DD' or string = 'latest'
+
+    Returns:
+        string: 'latest' or 'date'
+    """    
+    if date == 'latest': #if date is latest
+        return 'latest' #exit function 
     try:
-        strptime(date, '%Y-%m-%d')
-    except ValueError:
-        return 'latest'
-    return date
+        strptime(date, '%Y-%m-%d') #try to convert date
+    except ValueError: #if failed
+        return 'latest' #return 'latest' because date is wrong
+    return date #if still running, must be correct
 
 class spotifyMusicHandler:
     def __init__(self, API_key): 
@@ -289,3 +297,4 @@ class spotifyMusicHandler:
 
 if __name__ == '__main__':    
     SPOTIFY = spotifyMusicHandler('ENTER API KEY HERE')
+    results = SPOTIFY.get_from_search('Test string')
